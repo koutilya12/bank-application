@@ -17,11 +17,10 @@ public interface UserDao extends JpaRepository<User, Long> {
 	@Query("UPDATE User u set u.password = :newPassword WHERE u.userId = :userId")
 	int changePassword(Long userId, String newPassword);
 
-	@Query("SELECT u FROM User u WHERE u.userId = :userId and u.password = :oldPassword")
-	User validateChangePassword(Long userId, String oldPassword);
-	
 	@Modifying
 	@Query("UPDATE User u set u.address = if(:addressFlag, :address, u.address), u.emailId = if(:emailIdFlag, :emailId, u.emailId) WHERE u.userId = :userId ") 
 	int updateContactDetails(Long userId, String address, String emailId, int addressFlag, int emailIdFlag);
+
+	User findByName(String username);
 	
 }

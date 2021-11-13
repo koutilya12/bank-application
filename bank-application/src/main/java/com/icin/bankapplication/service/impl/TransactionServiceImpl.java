@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.icin.bankapplication.BankException;
 import com.icin.bankapplication.constants.BankApplicationConstants;
 import com.icin.bankapplication.constants.TransactionStatus;
-import com.icin.bankapplication.constants.TransactionType;
 import com.icin.bankapplication.constants.helpers.Validator;
 import com.icin.bankapplication.dao.AccountDao;
 import com.icin.bankapplication.dao.TransactionDao;
@@ -116,7 +115,7 @@ public class TransactionServiceImpl implements TransactionService {
 		if(errorMessage != null) {
 			return new Response(BankApplicationConstants.FAILED, errorMessage);
 		}
-		return new Response(BankApplicationConstants.SUCCESS, transactionValues);
+		return new Response(BankApplicationConstants.SUCCESS, null, transactionValues);
 	}
 
 	private String validateTransactionValues(List<Transaction> transactionDetails) {

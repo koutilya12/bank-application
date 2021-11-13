@@ -1,15 +1,16 @@
 package com.icin.bankapplication.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.icin.bankapplication.constants.BankApplicationConstants;
@@ -17,14 +18,16 @@ import com.icin.bankapplication.constants.helpers.Validator;
 import com.icin.bankapplication.dao.UserDao;
 import com.icin.bankapplication.entity.Response;
 import com.icin.bankapplication.entity.User;
-import com.icin.bankapplication.entity.UserSearchCriteria;
 import com.icin.bankapplication.service.UserService;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService,UserDetailsService {
 	
 	@Autowired
 	UserDao userDao;
+	
+	@Autowired
+	PasswordEncoder encoder; 
 	
 	@Override
 	public Response registerUser(User user) {
@@ -32,6 +35,8 @@ public class UserServiceImpl implements UserService{
 		if(errorMessage != null) {
 			return new Response(BankApplicationConstants.FAILED, errorMessage);
 		}
+		String encodedPassword =  encoder.encode(user.getPassword());
+		user.setPassword(encodedPassword);
 		userDao.save(user);
 		if (user.getUserId() == null) {
 			return new Response(BankApplicationConstants.FAILED, "Registration Failed");
@@ -59,9 +64,14 @@ public class UserServiceImpl implements UserService{
 		if(errorMessage != null) {
 			return new Response(BankApplicationConstants.FAILED, errorMessage);
 		}
-		if(userDao.validateChangePassword(userId, oldPassword) == null) {
+		Optional<User> user = userDao.findById(userId);
+		if(!user.isPresent()) {
+			return new Response(BankApplicationConstants.FAILED, "Invalid user");
+		}
+		if(!encoder.matches(oldPassword, user.get().getPassword())) {
 			return new Response(BankApplicationConstants.FAILED, "Invalid credentials");
 		}
+		newPassword = encoder.encode(newPassword); 
 		if(userDao.changePassword(userId, newPassword) == 0) {
 			return new Response(BankApplicationConstants.FAILED, "Password change failed");
 		}
@@ -94,8 +104,17 @@ public class UserServiceImpl implements UserService{
 		if(errorMessage != null) {
 			return new Response(BankApplicationConstants.FAILED, errorMessage);
 		}	
-		Example  example = Example.of(user);
+		Example<User>  example = Example.of(user);
 		List<User> userDetails = userDao.findAll(example);
-		return new Response(BankApplicationConstants.SUCCESS, userDetails);
+		return new Response(BankApplicationConstants.SUCCESS,null, userDetails);
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		User user = userDao.findByName(username);
+		if(user == null) {
+			throw new UsernameNotFoundException("User Not Found with username: " + username);
+		}
+		return UserDetailsImpl.build(user);
 	}
 }

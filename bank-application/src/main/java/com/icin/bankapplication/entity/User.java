@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.icin.bankapplication.constants.UserType;
 
 import lombok.Data;
@@ -16,6 +18,7 @@ import lombok.Data;
 @Table(name = "user")
 @Data
 public class User {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
@@ -27,4 +30,5 @@ public class User {
 	private Date dateOfBirth;
 	private String address;
 	private UserType userType;
+	
 }

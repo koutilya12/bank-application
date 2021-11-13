@@ -78,9 +78,6 @@ public class Validator {
 		if(user == null) {
 			return "Invalid user search";
 		}
-		if(user.getUserId() == null) {
-			return "user Id empty";
-		}
 		return null;
 	}
 

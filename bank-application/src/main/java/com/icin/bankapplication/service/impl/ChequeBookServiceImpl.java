@@ -14,9 +14,7 @@ import com.icin.bankapplication.constants.helpers.Validator;
 import com.icin.bankapplication.dao.AccountDao;
 import com.icin.bankapplication.dao.ChequeBookRequestDao;
 import com.icin.bankapplication.entity.ChequeBookRequest;
-import com.icin.bankapplication.entity.ChequeBookSearchCriteria;
 import com.icin.bankapplication.entity.Response;
-import com.icin.bankapplication.entity.User;
 import com.icin.bankapplication.service.ChequeBookService;
 
 @Service
@@ -66,10 +64,10 @@ public class ChequeBookServiceImpl implements ChequeBookService {
 		if(errorMessage != null) {
 			return new Response(BankApplicationConstants.FAILED, errorMessage);
 		}
-		Example  example = Example.of(chequeBookRequest);
+		Example<ChequeBookRequest>  example = Example.of(chequeBookRequest);
 		List<ChequeBookRequest> chequeBookRequestDetails = chequeBookRequestDao.findAll(example);
 		if(chequeBookRequestDetails != null && !chequeBookRequestDetails.isEmpty()) {
-			return new Response(BankApplicationConstants.SUCCESS, chequeBookRequestDetails);
+			return new Response(BankApplicationConstants.SUCCESS, null,chequeBookRequestDetails);
 		}
 		return new Response(BankApplicationConstants.FAILED, "cheque book details search failed");
 	}

@@ -1,6 +1,5 @@
 package com.icin.bankapplication.entity;
 
-import java.util.List;
 
 import com.icin.bankapplication.constants.TransactionType;
 

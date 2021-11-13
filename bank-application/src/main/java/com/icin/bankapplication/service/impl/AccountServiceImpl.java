@@ -15,7 +15,6 @@ import com.icin.bankapplication.constants.helpers.Validator;
 import com.icin.bankapplication.dao.AccountDao;
 import com.icin.bankapplication.entity.Account;
 import com.icin.bankapplication.entity.Response;
-import com.icin.bankapplication.entity.User;
 import com.icin.bankapplication.service.AccountService;
 
 @Service
@@ -69,10 +68,10 @@ public class AccountServiceImpl implements AccountService{
 		if(errorMessage != null) {
 			return new Response(BankApplicationConstants.FAILED, errorMessage);
 		}	
-		Example  example = Example.of(account);
+		Example<Account>  example = Example.of(account);
 		List<Account> accountDetails = accountDao.findAll(example);
 		if(accountDetails != null && !accountDetails.isEmpty()) {
-			return new Response(BankApplicationConstants.SUCCESS, accountDetails);
+			return new Response(BankApplicationConstants.SUCCESS, null,accountDetails);
 		}
 		return new Response(BankApplicationConstants.FAILED, "Search account details failed");
 	}

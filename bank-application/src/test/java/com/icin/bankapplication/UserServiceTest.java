@@ -31,13 +31,13 @@ public class UserServiceTest {
 		
 	}
 	
-	//@Test
+	@Test
 	public void registerUserTest() {
 		User user = new User();
-		user.setName("Smith");
+		user.setName("Smithss");
 		user.setEmailId("smithisadmin@gmail.com");
 		user.setPassword("smith@admin");
-		user.setMobileNum("8888899999");
+		user.setMobileNum("8888899990");
 		user.setDateOfBirth(new Date());
 		user.setAddress("Chicago");
 		user.setUserType(UserType.ADMIN);
