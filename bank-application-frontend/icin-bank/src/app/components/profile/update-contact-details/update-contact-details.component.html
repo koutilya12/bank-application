@@ -1,0 +1,50 @@
+<p>update-contact-details works!</p>
+<div class="col-md-10 offset-1 ">
+    <form        
+     name="form"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    #f="ngForm"
+    novalidate>
+        <div class="form-group">
+            <label for="emailId">email id</label>
+            <input
+              type="text"
+              class="form-control"
+              name="emailId"
+              [(ngModel)]="emailId"
+            />
+            <!-- <div class="alert-danger" *ngIf="password.errors">
+              <div *ngIf="password.errors.required">Password is required</div>
+              <div *ngIf="password.errors.minlength">
+                Password must be at least 6 characters
+              </div>
+            </div> -->
+          </div>
+          <div class="form-group">
+            <label for="address">address</label>
+            <input
+              type="text"
+              class="form-control"
+              name="address"
+              [(ngModel)]="address"
+            />
+            <!-- <div class="alert-danger" *ngIf="password.errors">
+              <div *ngIf="password.errors.required">Password is required</div>
+              <div *ngIf="password.errors.minlength">
+                Password must be at least 6 characters
+              </div>
+            </div> -->
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary btn-block">update contact details</button>
+          </div>
+          <div class="alert alert-warning" *ngIf="f.submitted && isFailed">
+            <br />{{ errorMessage }}
+          </div>
+    
+        <div class="alert alert-success" *ngIf="isSuccessful">
+          Contact Details Updated Successfully
+        </div>
+</form>
+</div>
+
