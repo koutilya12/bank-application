@@ -1,1 +1,43 @@
-<p>transfer works!</p>
+<div class="col-md-10 offset-1 " *ngIf="transfer && transfer.toAccount && transfer.fromAccount">
+    <form name="form" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+ 
+        <p>
+          Select Account
+          <select   name= "fromAccount" [(ngModel)]="transfer.fromAccount.accountId" (change)="setFromAccount($event.target)">
+            <option *ngFor="let account of accounts" [value]="account.accountId">{{account.accountId}}</option>
+          </select>
+         
+        </p>
+
+        <div class="form-group">
+            <label for="toAccount">To Account</label>
+            <input
+              type="text"
+              class="form-control"
+              name="toAccount"
+              [(ngModel)]="transfer.toAccount.accountId"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="amount">Amount</label>
+            <input
+              type="text"
+              class="form-control"
+              name="amount"
+              [(ngModel)]="transfer.transactionAmount"
+            />
+          </div>
+          <button type="submit">Transfer</button>
+         
+     </form>
+
+     <div class="alert alert-warning" *ngIf="f.submitted && isFailed">
+        <br />{{ errorMessage }}
+      </div>
+
+    <div class="alert alert-success" *ngIf="isSuccessful">
+      Amount Transferred Successfully
+    </div>
+</div>
+

@@ -1,3 +1,4 @@
+
 package com.icin.bankapplication.entity;
 
 import java.util.Date;

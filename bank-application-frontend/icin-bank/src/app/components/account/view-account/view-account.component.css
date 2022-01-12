@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-column {
+    width: 60px;
+    text-align: center;
+    font-weight: bold;
+    padding-right: 24px;
+    border-right: 1px solid currentColor;
+  }
+  
+  td.mat-cell,th.mat-header-cell   {
+    /* row padding */
+    padding: 20px 0;
+    text-align: center;
+  
+    /* row border */
+    border: 1px solid black;
+  }
+  .header-class {
+    text-align: center;
+  }
+  
+  

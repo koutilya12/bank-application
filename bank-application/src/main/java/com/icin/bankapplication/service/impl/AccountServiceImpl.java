@@ -29,6 +29,9 @@ public class AccountServiceImpl implements AccountService{
 		if(errorMessage != null) {
 			return new Response(BankApplicationConstants.FAILED, errorMessage);
 		}
+		if(getAccountDetails(account) != null) {
+			return new Response(BankApplicationConstants.FAILED, "Account already exists");
+		}
 		accountDao.save(account);
 		if(account.getAccountId() != null) {
 			return new Response(BankApplicationConstants.SUCCESS, "Account successfully created");

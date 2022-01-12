@@ -41,8 +41,8 @@ public class UserDetailsImpl implements UserDetails {
 	}
 
 	public static UserDetailsImpl build(User user) {
-		List<GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(user.getUserType().name()));
-
+		List<GrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority(user.getUserType().toString()));
+        System.out.println(user.getUserType().toString());
 		return new UserDetailsImpl(
 				user.getUserId(), 
 				user.getName(), 

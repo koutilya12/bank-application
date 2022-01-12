@@ -24,7 +24,7 @@ public class TransactionController {
 	
 	
 	@PostMapping("/createTransaction")
-	@PreAuthorize("hasRole('CUSTOMER')")
+	//@PreAuthorize("hasRole('CUSTOMER')")
 	public @ResponseBody Response createTransaction(@RequestBody Transaction transaction) throws BankException {
 		return transactionService.createTransaction(transaction);
 	}

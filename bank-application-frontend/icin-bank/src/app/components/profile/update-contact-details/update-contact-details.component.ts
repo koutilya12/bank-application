@@ -44,6 +44,5 @@ export class UpdateContactDetailsComponent implements OnInit {
         this.isFailed = true;
       }
     );
-    console.log('hi')
   }
 }

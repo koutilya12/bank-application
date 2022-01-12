@@ -110,17 +110,8 @@ public class Validator {
 		if(account.getUser().getUserId() == null) {
 			return "user Id empty";
 		}
-		if(account.getStatus() == null) {
-			return "account status empty";
-		}
 		if(account.getAccountType() == null) {
 			return "account type empty";
-		}
-		if(account.getBalance() == null) {
-			return "balance empty";
-		}
-		if(account.getLastUpdated() == null) {
-			return "last updated empty";
 		}
 		return null;
 	}

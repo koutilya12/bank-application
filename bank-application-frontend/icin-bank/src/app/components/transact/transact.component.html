@@ -1,5 +1,5 @@
-<mat-tab-group [backgroundColor]="'accent'">
-    <mat-tab label="Transfer"> <app-transfer></app-transfer> </mat-tab>
+<mat-tab-group [backgroundColor]="'accent'" *ngIf= 'accounts'>
+    <mat-tab label="Transfer"> <app-transfer [accounts] = "accounts"></app-transfer> </mat-tab>
     <mat-tab label="Deposit"> Deposit </mat-tab>
     <mat-tab label="Withdraw">Withdraw</mat-tab>
   </mat-tab-group>

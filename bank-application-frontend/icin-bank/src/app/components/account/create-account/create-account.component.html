@@ -1,1 +1,23 @@
-<p>create-account works!</p>
+<div class="col-md-10 offset-1 ">
+    <form name="form" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+ 
+        <p>
+          <select   name= "accountType" [(ngModel)]="account.accountType" (change)="setAccountType($event.target)">
+            <option [value]="null" disabled>Select Account Type</option>
+            <option *ngFor="let type of accountTypes" [value]="type.id">{{type.name}}</option>
+          </select>
+         
+          <button type="submit">Submit</button>
+        </p>
+         
+     </form>
+
+     <div class="alert alert-warning" *ngIf="f.submitted && isFailed">
+        <br />{{ errorMessage }}
+      </div>
+
+    <div class="alert alert-success" *ngIf="isSuccessful">
+      Password Changed Successfully
+    </div>
+</div>
+
